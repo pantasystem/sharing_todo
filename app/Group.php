@@ -20,4 +20,9 @@ class Group extends Model
     {
         //return $this->hasMany(Todo:class);
     }
+
+    public function messages()
+    {
+        
+    }
 }

@@ -14,8 +14,9 @@ class User extends Authenticatable
 
     public function groups()
     {
-        return $this->hasMany(Group::class);
+        return $this->belongsToMany(Group::class);
     }
+
     /**
      * The attributes that are mass assignable.
      *
