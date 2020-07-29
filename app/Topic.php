@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Todo;
 use App\Group;
+use App\Category;
 
 class Topic extends Model
 {
@@ -23,5 +24,10 @@ class Topic extends Model
     public function group()
     {
         return $this->belongsTo(Group::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'categorize_topic', 'topic_id', 'category_id');
     }
 }
