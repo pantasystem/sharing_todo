@@ -17,7 +17,7 @@ class CreateTopicsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->bigInteger('author_id');
-            $table->bigInteger('group_id');
+            $table->bigInteger('group_id')->nullable();
             $table->string('title');
             $table->string('description')->nullable();
             $table->foreign('author_id')
