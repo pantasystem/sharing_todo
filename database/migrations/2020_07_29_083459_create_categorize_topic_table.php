@@ -13,7 +13,7 @@ class CreateCategorizeTopicTable extends Migration
      */
     public function up()
     {
-        Schema::create('categorize_topic_', function (Blueprint $table) {
+        Schema::create('categorize_topic', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateCategorizeTopicTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categorize_topic_');
+        Schema::dropIfExists('categorize_topic');
     }
 }
