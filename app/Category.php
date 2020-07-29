@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Topic;
 use App\Group;
 
+/**
+ * CategoryはTopicのカテゴリ分けとして利用される。
+ * CategoryはTopicと多対多の関係である。
+ * 
+ */
 class Category extends Model
 {
     //
