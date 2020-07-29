@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Comment;
+use App\Topic;
 
 class Todo extends Model
 {
@@ -25,5 +26,10 @@ class Todo extends Model
     {
         // group_idを持つ
         return $this->hasMany(User::class);
+    }
+
+    public function topic()
+    {
+        return $this->belongsTo(Topic::class);
     }
 }
