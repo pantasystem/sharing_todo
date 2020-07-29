@@ -23,7 +23,7 @@ class Topic extends Model
 {
     
     protected $fillable = [
-        'author_id', 'group_id', 'title', 'description', 'atuhor_type'
+        'author_id', 'group_id', 'title', 'description'
     ];
 
     public function toods()
