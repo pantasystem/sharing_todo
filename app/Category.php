@@ -9,6 +9,9 @@ use App\Group;
 class Category extends Model
 {
     //
+    protected $fillable = [
+        'name', 'author_id', 'author_type'
+    ];
 
     public function topics()
     {
