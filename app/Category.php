@@ -12,6 +12,11 @@ class Category extends Model
 
     public function topics()
     {
-        return $this->belongsToMany(Topic::class, 'categories_topic', 'categorie_id', 'topic_id');
+        return $this->belongsToMany(Topic::class, 'categorize_topic', 'category_id', 'topic_id');
+    }
+
+    public function author()
+    {
+        return $this->morphTo();
     }
 }
