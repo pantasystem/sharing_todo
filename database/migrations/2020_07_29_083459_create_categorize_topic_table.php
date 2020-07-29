@@ -16,6 +16,17 @@ class CreateCategorizeTopicTable extends Migration
         Schema::create('categorize_topic', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->bigInteger('category_id');
+            $table->bigInteger('topic_id');
+            $table->boolean('isAdmin');
+            $table->foreign('category_id')
+                ->references('id')->on('category')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreign('topic_id')
+                ->references('id')->on('topic')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 
