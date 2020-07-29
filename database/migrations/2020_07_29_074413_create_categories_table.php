@@ -17,7 +17,10 @@ class CreateCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->string("name")->unique();
-
+            $table->bigInteger('creation_group_id')->nullable();
+            $table->bigInteger('author_id')->nullable();
+            $table->foreign('creation_group_id')->references('id')->on('groups')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
