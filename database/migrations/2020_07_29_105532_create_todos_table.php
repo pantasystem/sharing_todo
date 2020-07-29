@@ -20,15 +20,20 @@ class CreateTodosTable extends Migration
             $table->foreign('topic_id')->references('id')->on('topics')
                 ->onDelete('cascade')->onUpdate('cascade');
 
-            $table->bigInteger('author_id');
+            $table->bigInteger('author_id')->nullable();
+            $table->bigInteger('achiever_id')->nullable();
             $table->bigInteger('group_id')->nullable();
             $table->foreign('author_id')
                 ->references('id')->on('users')
-                ->onDelete('cascade')
+                ->onDelete('set null')
                 ->onUpdate('cascade');
             $table->foreign('group_id')
                 ->references('id')->on('groups')
-                ->onDelete('cascade')
+                ->onDelete('set null')
+                ->onUpdate('cascade');
+            $table->foreign('achiever_id')
+                ->references('id')->on('users')
+                ->onDelete('set null')
                 ->onUpdate('cascade');
         });
     }

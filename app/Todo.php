@@ -22,7 +22,7 @@ class Todo extends Model
     public function author()
     {
         // user_idを持つ
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'author_id');
     }
 
     public function group()
@@ -34,5 +34,10 @@ class Todo extends Model
     public function topic()
     {
         return $this->belongsTo(Topic::class);
+    }
+
+    public function achiever()
+    {
+        return $this->belongsTo(User::class, 'achiever_id');
     }
 }
