@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Todo;
 use App\Message;
+use App\Category;
 
 class Group extends Model
 {
@@ -29,5 +30,10 @@ class Group extends Model
     public function messages()
     {
         return $this->hasMany(Message::class);
+    }
+
+    public function categoriesUsed()
+    {
+        return $this->morphMany(Category::class, 'author');
     }
 }

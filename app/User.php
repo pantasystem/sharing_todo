@@ -11,6 +11,7 @@ use App\Topic;
 use App\Todo;
 use App\Comment;
 use App\Message;
+use App\Category;
 
 class User extends Authenticatable
 {
@@ -44,6 +45,11 @@ class User extends Authenticatable
     public function messages()
     {
         return $this->hasMany(Message::class);
+    }
+
+    public function categoriesUsed()
+    {
+        return $this->morphMany(Category::class, 'author');
     }
 
     /**
