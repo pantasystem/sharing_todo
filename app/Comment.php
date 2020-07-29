@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Todo;
+use App\User;
 
 class Comment extends Model
 {
@@ -16,7 +17,7 @@ class Comment extends Model
 
     public function author()
     {
-
+        return $this->belongsTo(User::class);
     }
 
     public function replies()

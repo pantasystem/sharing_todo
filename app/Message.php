@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Group;
+use App\User;
 
 class Message extends Model
 {
@@ -16,6 +17,6 @@ class Message extends Model
 
     public function author()
     {
-        
+        return $this->belongsTo(User::class);
     }
 }
