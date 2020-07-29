@@ -18,7 +18,6 @@ class CreateCategorizeTopicTable extends Migration
             $table->timestamps();
             $table->bigInteger('category_id');
             $table->bigInteger('topic_id');
-            $table->boolean('isAdmin');
             $table->foreign('category_id')
                 ->references('id')->on('categories')
                 ->onDelete('cascade')
