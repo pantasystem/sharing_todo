@@ -16,18 +16,20 @@ class CreateTopicsTable extends Migration
         Schema::create('topics', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->bigInteger('author_id');
+            $table->bigInteger('author_id')->nullable();
             $table->bigInteger('group_id')->nullable();
             $table->string('title')->index();
             $table->string('description')->nullable()->index();
             $table->foreign('author_id')
                 ->references('id')->on('users')
-                ->onDelete('cascade')
+                ->onDelete('set null')
                 ->onUpdate('cascade');
             $table->foreign('group_id')
                 ->references('id')->on('groups')
-                ->onDelete('cascade')
+                ->onDelete('set null')
                 ->onUpdate('cascade');
+
+            // onDelete set nullにする理由はTopicはGroup、Userどちらにも属するからである。
         });
     }
 

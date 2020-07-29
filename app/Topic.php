@@ -8,6 +8,14 @@ use App\Todo;
 use App\Group;
 use App\Category;
 
+/**
+ * Topicモデル
+ * Topicは作者のものでもあり作者が属しているGroupのものでもある。
+ * つまりUserが脱退したりGroupが削除されてもTopicが削除されることはない。
+ * 作者、グループどちらかがいれば存在する。
+ * Topic 1 : 作者 1, 0
+ * Topic 1 : グループ 1, 0
+ */
 class Topic extends Model
 {
     //
@@ -20,6 +28,9 @@ class Topic extends Model
         return $this->hasMany(Todo::class);
     }
 
+    /**
+     * 作者のモデルを返す
+     */
     public function author()
     {
         return $this->belongsTo(User::class);
