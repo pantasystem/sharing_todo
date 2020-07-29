@@ -16,6 +16,17 @@ class CreateMembersTable extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->bigInteger('user_id');
+            $table->bigInteger('group_id');
+            $table->boolean('isAdmin');
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreign('group_id')
+                ->references('id')->on('groups')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 
