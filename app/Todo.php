@@ -25,7 +25,7 @@ class Todo extends Model
     public function group()
     {
         // group_idを持つ
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function topic()

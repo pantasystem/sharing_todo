@@ -27,7 +27,7 @@ class Comment extends Model
 
     public function replyTo()
     {
-        return $this->belongsTo(Comment::class);
+        return $this->belongsTo(Comment::class, 'reply_to_id');
     }
 
     
