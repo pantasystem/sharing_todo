@@ -18,8 +18,8 @@ class CreateTopicsTable extends Migration
             $table->timestamps();
             $table->bigInteger('author_id');
             $table->bigInteger('group_id')->nullable();
-            $table->string('title');
-            $table->string('description')->nullable();
+            $table->string('title')->index();
+            $table->string('description')->nullable()->index();
             $table->foreign('author_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade')

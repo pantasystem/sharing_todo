@@ -17,6 +17,7 @@ class CreateCommentsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->bigInteger('reply_to_id')->nullable();
+            $table->text('text')->index();
             $table->foreign('author_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade')
