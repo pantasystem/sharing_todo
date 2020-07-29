@@ -31,10 +31,6 @@ class Group extends Model
         return $this->hasMany(Todo::class);
     }
 
-    public function messages()
-    {
-        return $this->hasMany(Message::class);
-    }
 
     public function categoriesUsed()
     {

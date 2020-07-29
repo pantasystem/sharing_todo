@@ -7,6 +7,12 @@ use App\User;
 use App\Comment;
 use App\Topic;
 
+/**
+ * Todoを表現するモデル
+ * 作成者author, 属するグループgroupがある。
+ * Todoはauthor, groupどちらかだけで存在することができる。
+ * 削除の条件は上位レイヤが決定することとする。
+ */
 class Todo extends Model
 {
     //
