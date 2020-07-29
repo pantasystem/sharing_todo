@@ -15,6 +15,7 @@ use App\Category;
  * 作者、グループどちらかがいれば存在する。
  * Topic 1 : 作者 1, 0
  * Topic 1 : グループ 1, 0
+ * TopicはTodoの詳細として利用される。
  */
 class Topic extends Model
 {
