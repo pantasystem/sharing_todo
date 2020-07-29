@@ -17,18 +17,21 @@ class CreateCommentsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->bigInteger('reply_to_id')->nullable();
+            $table->bigInteger('author_id');
+            $table->bigInteger('todo_id');
             $table->text('text')->index();
+            $table->foreign('todo_id')
+                ->references('id')->on('todos')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->foreign('author_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->foreign('group_id')
-                ->references('id')->on('groups')
+            
+            /*$table->foreign('reply_to_id')->references('id')->on('comments')
                 ->onDelete('cascade')
-                ->onUpdate('cascade');
-            $table->foreign('reply_to_id')->references('id')->on('comments')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+                ->onUpdate('cascade');*/
         });
     }
 

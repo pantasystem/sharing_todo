@@ -20,11 +20,11 @@ class CreateCategorizeTopicTable extends Migration
             $table->bigInteger('topic_id');
             $table->boolean('isAdmin');
             $table->foreign('category_id')
-                ->references('id')->on('category')
+                ->references('id')->on('categories')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
             $table->foreign('topic_id')
-                ->references('id')->on('topic')
+                ->references('id')->on('topics')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
