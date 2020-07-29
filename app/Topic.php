@@ -17,12 +17,13 @@ use App\Category;
  * Topic 1 : グループ 1, 0
  * TopicはTodoの詳細として利用される。
  * 削除の条件は上位レイヤが決定することとする。
+ * 所有者はGroupやUserのポリシーに従属することとする。
  */
 class Topic extends Model
 {
-    //
+    
     protected $fillable = [
-        'author_id', 'group_id', 'title', 'description'
+        'author_id', 'group_id', 'title', 'description', 'atuhor_type'
     ];
 
     public function toods()

@@ -12,10 +12,12 @@ use App\Topic;
  * 作成者author, 属するグループgroupがある。
  * Todoはauthor, groupどちらかだけで存在することができる。
  * 削除の条件は上位レイヤが決定することとする。
+ * また所有者はUser,Groupのポリシーに従うこととする。
  */
 class Todo extends Model
 {
-    //
+
+
     protected $fillable = [
         'topic_id', 'author_id', 'group_id'
     ];
