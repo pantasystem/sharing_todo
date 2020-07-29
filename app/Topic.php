@@ -11,6 +11,10 @@ use App\Category;
 class Topic extends Model
 {
     //
+    protected $fillable = [
+        'author_id', 'group_id', 'title', 'description'
+    ];
+
     public function toods()
     {
         return $this->hasMany(Todo::class);

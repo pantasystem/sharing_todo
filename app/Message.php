@@ -9,6 +9,9 @@ use App\User;
 class Message extends Model
 {
     //
+    protected $fillable = [
+        'text', 'group_id', 'author_id'
+    ];
 
     public function group()
     {

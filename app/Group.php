@@ -11,6 +11,10 @@ use App\Category;
 class Group extends Model
 {
     //
+    protected $fillable = [
+        'name', 'description', 'user_id', 'group_id'
+    ];
+
     public function members()
     {
         //

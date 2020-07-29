@@ -10,6 +10,9 @@ use App\Topic;
 class Todo extends Model
 {
     //
+    protected $fillable = [
+        'topic_id', 'author_id', 'group_id'
+    ];
 
     public function comments()
     {
