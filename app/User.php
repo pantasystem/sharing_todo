@@ -7,7 +7,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 use App\Group;
-use App\Topic;
 use App\Todo;
 use App\Comment;
 use App\Message;
@@ -27,10 +26,7 @@ class User extends Authenticatable
         //return $this->belongsToMany(Group::class);
     }
 
-    public function topics()
-    {
-        return $this->hasMany(Topic::class);
-    }
+    
 
     public function todos()
     {

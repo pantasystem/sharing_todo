@@ -16,9 +16,9 @@ class CreateTodosTable extends Migration
         Schema::create('todos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->bigInteger('topic_id');
-            $table->foreign('topic_id')->references('id')->on('topics')
-                ->onDelete('cascade')->onUpdate('cascade');
+            $table->string('title');
+            $table->text('description')->nullable();
+            
 
             $table->bigInteger('author_id')->nullable();
             $table->bigInteger('achiever_id')->nullable();

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Comment;
 use App\Topic;
+use App\Category;
 
 /**
  * Todoを表現するモデル
@@ -19,7 +20,7 @@ class Todo extends Model
 
 
     protected $fillable = [
-        'topic_id', 'author_id', 'group_id'
+        'topic_id', 'author_id', 'group_id', 'title', 'description'
     ];
 
     public function comments()
@@ -39,9 +40,9 @@ class Todo extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function topic()
+    public function categories()
     {
-        return $this->belongsTo(Topic::class);
+        return $this->belongsToMany(Category::class, 'categorize_todos', 'todo_id', 'category_id');
     }
 
     public function achiever()

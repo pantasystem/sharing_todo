@@ -18,9 +18,11 @@ class Category extends Model
         'name', 'author_id', 'author_type'
     ];
 
-    public function topics()
+ 
+
+    public function todos()
     {
-        return $this->belongsToMany(Topic::class, 'categorize_topic', 'category_id', 'topic_id');
+        return $this->belongsToMany(Todo::class, 'categorize_todos', 'category_id', 'todo_id');
     }
 
     public function author()
