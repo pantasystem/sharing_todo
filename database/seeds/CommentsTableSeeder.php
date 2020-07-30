@@ -11,11 +11,11 @@ class CommentsTableSeeder extends Seeder
      */
     public function run()
     {
+        $text = 'hogehogeHogeeeeee';
         DB::table('comments')->insert([
-            'title' => 'Topic' . $name,
-            'description' => 'Topic' . $name . "TopicEnd",
+            'text' => $text,
+            'todo_id' => 4,
             'author_id' => 1,
-            'group_id' => 1
         ]);
     }
 }
