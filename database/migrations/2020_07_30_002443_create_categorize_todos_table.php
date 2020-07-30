@@ -19,7 +19,7 @@ class CreateCategorizeTodosTable extends Migration
             $table->bigInteger('todo_id');
             $table->bigInteger('category_id');
 
-            $table->foreign('todo_id')->references('id')->on('todo')
+            $table->foreign('todo_id')->references('id')->on('todos')
                 ->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('category_id')->references('id')->on('categories')
                 ->onDelete('cascade')->onUpdate('cascade');
