@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTodosTable extends Migration
+class CreateCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,25 @@ class CreateTodosTable extends Migration
      */
     public function up()
     {
-        Schema::create('todos', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->bigInteger('topic_id');
-            $table->foreign('topic_id')->references('id')->on('topics')
-                ->onDelete('cascade')->onUpdate('cascade');
-
+            $table->bigInteger('reply_to_id')->nullable();
             $table->bigInteger('author_id');
-            $table->bigInteger('group_id')->nullable();
+            $table->bigInteger('todo_id');
+            $table->text('text')->index();
+            $table->foreign('todo_id')
+                ->references('id')->on('todos')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->foreign('author_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->foreign('group_id')
-                ->references('id')->on('groups')
+            
+            /*$table->foreign('reply_to_id')->references('id')->on('comments')
                 ->onDelete('cascade')
-                ->onUpdate('cascade');
+                ->onUpdate('cascade');*/
         });
     }
 
@@ -40,6 +42,6 @@ class CreateTodosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('todos');
+        Schema::dropIfExists('comments');
     }
 }

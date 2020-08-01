@@ -9,6 +9,9 @@ use App\User;
 class Comment extends Model
 {
     //
+    protected $fillable = [
+        'message', 'author_id', 'todo_id', 'reply_to_id'
+    ];
 
     public function todo()
     {

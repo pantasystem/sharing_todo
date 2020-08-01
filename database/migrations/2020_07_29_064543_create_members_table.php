@@ -18,7 +18,7 @@ class CreateMembersTable extends Migration
             $table->timestamps();
             $table->bigInteger('user_id');
             $table->bigInteger('group_id');
-            $table->boolean('isAdmin');
+            $table->boolean('is_admin')->defualt(false);
             $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade')

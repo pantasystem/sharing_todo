@@ -11,6 +11,10 @@ use App\Category;
 class Group extends Model
 {
     //
+    protected $fillable = [
+        'name', 'description', 'user_id', 'group_id'
+    ];
+
     public function members()
     {
         //
@@ -27,10 +31,6 @@ class Group extends Model
         return $this->hasMany(Todo::class);
     }
 
-    public function messages()
-    {
-        return $this->hasMany(Message::class);
-    }
 
     public function categoriesUsed()
     {
