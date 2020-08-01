@@ -20,7 +20,7 @@ class Todo extends Model
 
 
     protected $fillable = [
-        'topic_id', 'author_id', 'group_id', 'title', 'description'
+        'author_id', 'group_id', 'title', 'description'
     ];
 
     public function comments()
