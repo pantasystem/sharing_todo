@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Group;
-use App\GroupInvitationAnswer;
 
 class GroupInvitation extends Model
 {
@@ -14,6 +13,7 @@ class GroupInvitation extends Model
     // 招待有効期限
     // 招待の作成者
     // 承認済みかは他モデルを作成する
+    // is_accept(招待者の承諾)
 
     public function group()
     {
@@ -22,16 +22,10 @@ class GroupInvitation extends Model
 
     /**
      *  招待対象のユーザー
-     * 不特定多数の場合はNullを返す
      */
     public function inviteUser()
     {
         return $this->belongsTo(User::class, 'invite_user');
-    }
-
-    public function invitationToTheAnswers()
-    {
-        return $this->hasMany(GroupInvitationAnswer::class);
     }
 
     //public function 
