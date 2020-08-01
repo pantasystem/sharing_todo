@@ -7,6 +7,7 @@ use App\User;
 use App\Todo;
 use App\Message;
 use App\Category;
+use App\GroupInvitation;
 
 class Group extends Model
 {
@@ -35,5 +36,15 @@ class Group extends Model
     public function categoriesUsed()
     {
         return $this->morphMany(Category::class, 'author');
+    }
+
+    public function invitations()
+    {
+        return $this->hasMany(GroupInvitation::class);
+    }
+
+    public function activeInvitations()
+    {
+        return $this->invitations()->whereNull('is_accept');
     }
 }

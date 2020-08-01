@@ -11,6 +11,7 @@ use App\Todo;
 use App\Comment;
 use App\Message;
 use App\Category;
+use App\GroupInvitation;
 
 class User extends Authenticatable
 {
@@ -41,6 +42,11 @@ class User extends Authenticatable
     public function categoriesUsed()
     {
         return $this->morphMany(Category::class, 'author');
+    }
+
+    public function invitations()
+    {
+        return $this->hasMany(GroupInvitation::class, 'invitation_user_id');
     }
 
     /**
