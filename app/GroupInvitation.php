@@ -39,7 +39,6 @@ class GroupInvitation extends Model
         return $this->belongsTo(User::class, 'invitation_user_id');
     }
 
-    //public function 
 
     public function author()
     {
