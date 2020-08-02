@@ -13,20 +13,21 @@ class TodoController extends Controller
         $this->middleware('auth');
     }
 
-    public function todos(Request $request, $page = 1)
+    public function todos(Request $request, $group_id = null, $page = 1)
     {
-        $group_id = $request->input("group_id");
+        //$group_id = $request->input("group_id");
 
         $user = Auth::user();
 
+        \Log::info("access todos");
         $query;
-        if($group_id){
+        if($group_id == true){
             $query = $user->groups()->findOrFail($group_id)->todos();
         }else{
             $query = $user->todos();
         }
 
-        return $query->paginate($page);
+        return $query->get();
 
     }
 
