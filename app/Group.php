@@ -8,6 +8,7 @@ use App\Todo;
 use App\Message;
 use App\Category;
 use App\GroupInvitation;
+use Carbon\Carbon;
 
 class Group extends Model
 {
@@ -43,8 +44,5 @@ class Group extends Model
         return $this->hasMany(GroupInvitation::class);
     }
 
-    public function activeInvitations()
-    {
-        return $this->invitations()->whereNull('is_accept');
-    }
+    
 }

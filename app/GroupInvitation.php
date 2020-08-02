@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Group;
+use Carbon\Carbon;
 
 class GroupInvitation extends Model
 {
@@ -19,6 +20,10 @@ class GroupInvitation extends Model
         'expiration_date',
         'author_id',
         'is_accept'
+    ];
+
+    protected $dates = [
+        'expiration_date'
     ];
 
     public function group()
@@ -39,5 +44,18 @@ class GroupInvitation extends Model
     public function author()
     {
         return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function active(): boolean
+    {
+       $now = Carbon::now();
+       return $this->is_accept == null && $this->expiration_date == null || $now <= $this->expiration_date;
+    }
+
+    public function scopeActive($query, $now)
+    {
+        return $query->whereNull('is_accept')
+                    ->whereNull('expiration_date')
+                    ->orWhere('expiration_date', '>', $now);
     }
 }
