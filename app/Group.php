@@ -13,7 +13,7 @@ class Group extends Model
 {
     //
     protected $fillable = [
-        'name', 'description', 'user_id', 'group_id'
+        'name', 'description', 'user_id'
     ];
 
     public function members()
