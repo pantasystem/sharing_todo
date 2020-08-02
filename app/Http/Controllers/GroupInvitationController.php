@@ -51,12 +51,12 @@ class GroupInvitationController extends Controller
 
     }
 
-    public function invitations($group_id, $page)
+    public function invitations($group_id, $page = 1)
     {
         $user = Auth::user();
 
         $group = $user->groups()->findOrFail($group_id);
 
-        return $group->invitations()->orderBy('id', 'desc')->pagenate($page);
+        return $group->invitations()->orderBy('id', 'desc')->paginate($page);
     }
 }

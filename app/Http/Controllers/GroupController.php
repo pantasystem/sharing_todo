@@ -36,7 +36,7 @@ class GroupController extends Controller
     }
 
    
-    public function members($group_id, $page)
+    public function members($group_id, $page = 1)
     {
         $user = Auth::user();
 
