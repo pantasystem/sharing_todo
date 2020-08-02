@@ -27,5 +27,12 @@ class GroupController extends Controller
     }
 
    
-    
+    public function members($group_id)
+    {
+        $user = Auth::user();
+
+        $group = $user->groups()->findOrFail($group_id);
+
+        return $group->members;
+    }
 }

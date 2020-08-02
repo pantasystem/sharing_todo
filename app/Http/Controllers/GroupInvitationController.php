@@ -46,5 +46,7 @@ class GroupInvitationController extends Controller
         $invitation->is_accept = $is_accept;
         $invitation->save();
 
+        return $user;
+
     }
 }
