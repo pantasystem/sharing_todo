@@ -46,7 +46,7 @@ class GroupInvitation extends Model
         return $this->belongsTo(User::class, 'author_id');
     }
 
-    public function active(): boolean
+    public function isActive(): boolean
     {
        $now = Carbon::now();
        return $this->is_accept == null && $this->expiration_date == null || $now <= $this->expiration_date;
