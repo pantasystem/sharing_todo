@@ -27,7 +27,8 @@ class TodoController extends Controller
             $query = $user->todos();
         }
 
-        return $query->get();
+        $query->with('author', 'group');
+        return $query->paginate($page);
 
     }
 
