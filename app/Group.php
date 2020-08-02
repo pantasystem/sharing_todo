@@ -41,7 +41,7 @@ class Group extends Model
 
     public function invitations()
     {
-        return $this->hasMany(GroupInvitation::class);
+        return $this->hasMany(GroupInvitation::class, 'invitation_group_id');
     }
 
     

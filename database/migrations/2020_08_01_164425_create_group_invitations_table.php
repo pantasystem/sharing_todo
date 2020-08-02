@@ -26,7 +26,7 @@ class CreateGroupInvitationsTable extends Migration
             $table->bigInteger('invitation_group_id');
             $table->bigInteger('invitation_user_id');
             $table->bigInteger('author_id');
-            $table->boolean('is_accept');
+            $table->boolean('is_accept')->nullable();
             $table->dateTime('expiration_date')->nullable();
 
             $table->foreign('invitation_group_id')->references('id')->on('groups')
