@@ -25,7 +25,7 @@ class CreateTodoRequest extends FormRequest
     {
         return [
             'title' => 'required|min:2|max:100',
-            'description' => 'max:500',
+            'description' => 'max:3000',
         ];
     }
 }
