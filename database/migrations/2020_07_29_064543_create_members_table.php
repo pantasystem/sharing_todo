@@ -27,6 +27,7 @@ class CreateMembersTable extends Migration
                 ->references('id')->on('groups')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->unique(['user_id', 'group_id']);
         });
     }
 
