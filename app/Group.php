@@ -17,6 +17,10 @@ class Group extends Model
         'name', 'description', 'user_id'
     ];
 
+    protected $hidden = [
+        'pivot'
+    ];
+
     public function members()
     {
         //

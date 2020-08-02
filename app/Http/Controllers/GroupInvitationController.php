@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\GroupInvitation;
 use App\Group;
 use Carbon\Carbon;
@@ -48,5 +49,14 @@ class GroupInvitationController extends Controller
 
         return $user;
 
+    }
+
+    public function invitations($group_id, $page)
+    {
+        $user = Auth::user();
+
+        $group = $user->groups()->findOrFail($group_id);
+
+        return $group->invitations()->orderBy('id', 'desc')->pagenate($page);
     }
 }
