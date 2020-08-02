@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Auth::routes();
 
 Route::get('/me', 'UserController@getMe');
-Route::get('/me/todos/{?page}', 'TodoController@todos');
+Route::get('/me/todos/{page?}', 'TodoController@todos');
 
 
 Route::post('/groups', 'GroupController@store');
@@ -32,7 +32,7 @@ Route::post('/groups/{group_id}/invitations', 'GroupInvitationController@inviteU
 
 Route::get('/groups/{group_id}', 'GroupController@get');
 
-Route::get('/groups/{group_id}/todos/{?page}', 'TodoController@groupsTodos');
+Route::get('/groups/{group_id}/todos/{page?}', 'TodoController@todos');
 
 Route::get('/groups/{group_id}/todos/{todo_id}', 'TodoController@get');
 
