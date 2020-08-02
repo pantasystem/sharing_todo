@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGroupInvitationTable extends Migration
+class CreateGroupInvitationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -20,7 +20,7 @@ class CreateGroupInvitationTable extends Migration
         'author_id',
         'is_accept'
          */
-        Schema::create('group_invitation', function (Blueprint $table) {
+        Schema::create('group_invitations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
             $table->bigInteger('invitation_group_id');
@@ -46,6 +46,6 @@ class CreateGroupInvitationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('group_invitation');
+        Schema::dropIfExists('group_invitations');
     }
 }
