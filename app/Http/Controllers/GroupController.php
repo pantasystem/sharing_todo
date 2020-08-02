@@ -27,20 +27,5 @@ class GroupController extends Controller
     }
 
    
-    public function inviteUser(Request $request, $groupId)
-    {
-
-        $group = Group::find($group);
-        $member = $group->members()->findOrFail(Auth::user()->id);
-
-        // 招待しようとしているユーザー
-        $tagetUser = User::findOrFail($request->input('invitation_user_id'));
-        $invitation = $group->invitations()->create([
-            'author_id' => $member->id,
-            'invitation_user_id' => $targetUser->id,
-            'expiration_date' => $request->input('expiration_date'),
-        ]);
-
-        return $invitation;
-    }
+    
 }

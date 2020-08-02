@@ -44,7 +44,6 @@ class InvitationTest extends TestCase
             'author_id' => $this->groupMember->id,
             'invitation_user_id' => $this->targetUser->id,
             'expiration_date' => null,
-            'is_accept' => null,
         ]);
 
         $this->assertNotNull($invitation);
@@ -57,7 +56,6 @@ class InvitationTest extends TestCase
             'author_id' => $this->groupMember->id,
             'invitation_user_id' => $this->targetUser->id,
             'expiration_date' => null,
-            'is_accept' => null,
         ]);
 
         $this->assertNotNull($this->targetUser->invitations()->active(Carbon::now())->first());
