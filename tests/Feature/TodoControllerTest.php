@@ -95,7 +95,8 @@ class TodoControllerTest extends TestCase
             'author' => [
                 'id' => $this->user->id,
                 'name' => $this->user->name
-            ]
+            ],
+            
         ]);
     }
 
@@ -165,7 +166,8 @@ class TodoControllerTest extends TestCase
             'group'=> [
                 'name' => $group->name,
                 'id' => $group->id
-            ]
+            ],
+            'user' => null
         ]);
     }
 

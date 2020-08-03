@@ -24,7 +24,7 @@ class TodoController extends Controller
         \Log::info("access todos");
         $query = $this->getTodoQuery($user, $group_id);
 
-        $query->with('author', 'group', 'categories');
+        $query->with('author', 'user', 'group', 'categories');
         return $query->paginate($page);
 
     }
@@ -42,15 +42,9 @@ class TodoController extends Controller
             $targetQuery = $user;
         }
 
-        $todo = new Todo();
-        $todo->fill($request->only('title', 'description'));
-        $todo->author()->associate($user);
+        $todo = $targetQuery->todos()->create($request->only('title', 'description'));
 
-        if($group_id){
-            $todo->group()->associate($targetQuery->id);
-        }else{
-            $todo->user()->associate($targetQuery->id);
-        }
+        $todo->author()->associate($user);
         $todo->save();
 
         $categories = $request->input('categories');
@@ -68,7 +62,7 @@ class TodoController extends Controller
         }
         
 
-        return $todo->load('author', 'group', 'achiever', 'categories');
+        return $todo->load('author', 'group','user', 'achiever', 'categories');
 
     }
     public function get($todo_id, $group_id)
@@ -84,7 +78,7 @@ class TodoController extends Controller
         $todo = $this->getTodoQuery($user, $group_id)->findOrFail($todo_id);
         $todo->achiever()->associate($user);
         $todo->save();
-        return $todo->load('author', 'group', 'achiever', 'categories');
+        return $todo->load('author', 'group', 'user', 'achiever', 'categories');
     }
 
     private function getTodoQuery($user, $group_id = null)
@@ -92,7 +86,7 @@ class TodoController extends Controller
         if($group_id){
             return $user->groups()->findOrFail($group_id)->todos();
         }else{
-            return $user->myTodos();
+            return $user->todos();
         }
     }
 }

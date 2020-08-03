@@ -30,16 +30,19 @@ class User extends Authenticatable
 
     
 
-    public function myTodos()
+    /*
+    作成者でもグループに属しない場合がありアクセスできるとまずいことになる場合があるので
+    作者というだけでは取得できない仕様とする。
+    public function createdTodos()
     {
-        return $this->hasMany(Todo::class, 'user_id');
+        return $this->hasMany(Todo::class, 'author_id');
 
-    }
+    }*/
 
 
     public function todos()
     {
-        return $this->hasMany(Todo::class, 'author_id');
+        return $this->hasMany(Todo::class, 'user_id');
     }
 
 
