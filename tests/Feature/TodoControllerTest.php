@@ -99,5 +99,29 @@ class TodoControllerTest extends TestCase
         ]);
     }
 
+    public function testCreateTodoOnGroup()
+    {
+        $response = $this->actingAs($this->user);
+        $group = $this->user->groups()->first();
+
+        $testData = [
+            'title' => 'Test',
+            'description' => 'TestTestDescription'
+        ];
+        $response = $this->actingAs($this->user);
+        $response->json('POST', '/api/groups/'. $group->id . '/todos', $testData)->assertJson([
+            'title' => $testData['title'],
+            'description' => $testData['description'],
+            /*'author' => [
+                'id' => $this->user->id,
+                'name' => $this->user->name
+            ],*/
+            'group'=> [
+                'name' => $group->name,
+                'id' => $group->id
+            ]
+        ]);
+    }
+
    
 }

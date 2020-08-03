@@ -37,6 +37,10 @@ class TodoController extends Controller
         $created = $query->create(
             $request->only('title', 'description')
         );
+        $created->author()->associate($user);
+        $created->save();
+
+        //$categories = $request->input('categories');
 
         return $created->load('author', 'group', 'achiever', 'categories');
 

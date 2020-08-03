@@ -37,7 +37,7 @@ class Todo extends Model
     public function group()
     {
         // group_idを持つ
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Group::class);
     }
 
     public function categories()

@@ -36,6 +36,7 @@ Route::post('/groups/{group_id}/invitations', 'GroupInvitationController@inviteU
 Route::get('/groups/{group_id}', 'GroupController@get');
 
 Route::get('/groups/{group_id}/todos/{page?}', 'TodoController@todos');
+Route::post('/groups/{group_id}/todos', 'TodoController@store');
 
 Route::get('/groups/{group_id}/todos/{todo_id}', 'TodoController@get');
 Route::put('/groups/{group_id}/todos/{todo_id}', 'TodoController@achiveTodo');
