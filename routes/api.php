@@ -23,6 +23,7 @@ Route::get('/me', 'UserController@getMe');
 Route::get('/me/todos/{page?}', 'TodoController@todos');
 Route::get('/me/todos/{todo_id}', 'TodoController@get');
 Route::put('/me/todos/{todo_id}', 'TodoController@achiveTodo');
+Route::post('/me/todos', 'TodoController@store');
 
 
 Route::post('/groups', 'GroupController@store');

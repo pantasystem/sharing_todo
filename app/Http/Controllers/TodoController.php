@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Request\CreateTodoRequest;
+use App\Http\Requests\CreateTodoRequest;
 
 
 class TodoController extends Controller
@@ -35,7 +35,7 @@ class TodoController extends Controller
 
         $query = $this->getTodoQuery($user, $group_id);
         $created = $query->create(
-            $request->one('title', 'description')
+            $request->only('title', 'description')
         );
 
         return $created->load('author', 'group', 'achiever', 'categories');
