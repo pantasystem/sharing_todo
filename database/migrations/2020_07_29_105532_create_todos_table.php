@@ -20,10 +20,17 @@ class CreateTodosTable extends Migration
             $table->text('description')->nullable();
             
 
-            $table->bigInteger('author_id')->nullable();
+            $table->bigInteger('user_id')->nullable();
             $table->bigInteger('achiever_id')->nullable();
             $table->bigInteger('group_id')->nullable();
+            $table->bigInteger('author_id')->nullable();
+
             $table->foreign('author_id')
+                ->references('id')->on('users')
+                ->onDelete('set null')
+                ->onUpdate('cascade');
+                
+            $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onDelete('set null')
                 ->onUpdate('cascade');

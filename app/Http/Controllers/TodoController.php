@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateTodoRequest;
+use App\Todo;
 
 
 class TodoController extends Controller
@@ -40,12 +41,17 @@ class TodoController extends Controller
         }else{
             $targetQuery = $user;
         }
-        $created = $targetQuery->todos()->create(
-            $request->only('title', 'description')
-        );
-        $created->author()->associate($user);
-        $created->save();
 
+        $todo = new Todo();
+        $todo->fill($request->only('title', 'description'));
+        $todo->author()->associate($user);
+
+        if($group_id){
+            $todo->group()->associate($targetQuery->id);
+        }else{
+            $todo->user()->associate($targetQuery->id);
+        }
+        $todo->save();
 
         $categories = $request->input('categories');
 
@@ -55,14 +61,14 @@ class TodoController extends Controller
                 $category = $categoriesUsedQuery->where('name', $categoryName)->firstOrCreate([
                     'name' => $categoryName
                 ]);
-                $category->todos()->attach($created->id);
+                $category->todos()->attach($todo->id);
                 $category->save();
 
             }
         }
         
 
-        return $created->load('author', 'group', 'achiever', 'categories');
+        return $todo->load('author', 'group', 'achiever', 'categories');
 
     }
     public function get($todo_id, $group_id)
@@ -86,7 +92,7 @@ class TodoController extends Controller
         if($group_id){
             return $user->groups()->findOrFail($group_id)->todos();
         }else{
-            return $user->todos();
+            return $user->myTodos();
         }
     }
 }

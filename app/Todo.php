@@ -20,7 +20,7 @@ class Todo extends Model
 
 
     protected $fillable = [
-        'author_id', 'group_id', 'title', 'description'
+        'user_id','author_id', 'group_id', 'title', 'description'
     ];
 
     public function comments()
@@ -28,9 +28,14 @@ class Todo extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function author()
+    public function user()
     {
         // user_idを持つ
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function author()
+    {
         return $this->belongsTo(User::class, 'author_id');
     }
 

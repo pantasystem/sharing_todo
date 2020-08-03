@@ -30,10 +30,18 @@ class User extends Authenticatable
 
     
 
+    public function myTodos()
+    {
+        return $this->hasMany(Todo::class, 'user_id');
+
+    }
+
+
     public function todos()
     {
         return $this->hasMany(Todo::class, 'author_id');
     }
+
 
     public function comments()
     {
