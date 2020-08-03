@@ -104,18 +104,64 @@ class TodoControllerTest extends TestCase
         $response = $this->actingAs($this->user);
         $group = $this->user->groups()->first();
 
+        $categories = ['今日のテスト', '日をまたぐテスト'];
+
         $testData = [
             'title' => 'Test',
-            'description' => 'TestTestDescription'
+            'description' => 'TestTestDescription',
+            'categories' => $categories
         ];
+
+        $categoriesResult = [];
+
+        foreach($categories as $c){
+            $categoriesResult[] = [ 'name' => $c ];
+        }
+
         $response = $this->actingAs($this->user);
         $response->json('POST', '/api/groups/'. $group->id . '/todos', $testData)->assertJson([
             'title' => $testData['title'],
             'description' => $testData['description'],
-            /*'author' => [
+            'author' => [
                 'id' => $this->user->id,
                 'name' => $this->user->name
-            ],*/
+            ],
+            'categories' => $categoriesResult,
+            'group'=> [
+                'name' => $group->name,
+                'id' => $group->id
+            ]
+        ]);
+    }
+
+    public function testCreateTodoOnGroupCategoryLess()
+    {
+        $response = $this->actingAs($this->user);
+        $group = $this->user->groups()->first();
+
+        $categories = [];
+
+        $testData = [
+            'title' => 'Test',
+            'description' => 'TestTestDescription',
+            'categories' => $categories
+        ];
+
+        $categoriesResult = [];
+
+        foreach($categories as $c){
+            $categoriesResult[] = [ 'name' => $c ];
+        }
+
+        $response = $this->actingAs($this->user);
+        $response->json('POST', '/api/groups/'. $group->id . '/todos', $testData)->assertJson([
+            'title' => $testData['title'],
+            'description' => $testData['description'],
+            'author' => [
+                'id' => $this->user->id,
+                'name' => $this->user->name
+            ],
+            'categories' => $categoriesResult,
             'group'=> [
                 'name' => $group->name,
                 'id' => $group->id

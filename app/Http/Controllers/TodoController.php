@@ -33,14 +33,34 @@ class TodoController extends Controller
 
         $user = Auth::user();
 
-        $query = $this->getTodoQuery($user, $group_id);
-        $created = $query->create(
+        //$query = $this->getTodoQuery($user, $group_id);
+        $targetQuery;
+        if($group_id){
+            $targetQuery = $user->groups()->findOrFail($group_id);
+        }else{
+            $targetQuery = $user;
+        }
+        $created = $targetQuery->todos()->create(
             $request->only('title', 'description')
         );
         $created->author()->associate($user);
         $created->save();
 
-        //$categories = $request->input('categories');
+
+        $categories = $request->input('categories');
+
+        if($categories && count($categories)){
+            $categoriesUsedQuery = $targetQuery->categoriesUsed();
+            foreach($categories as $categoryName){
+                $category = $categoriesUsedQuery->where('name', $categoryName)->firstOrCreate([
+                    'name' => $categoryName
+                ]);
+                $category->todos()->attach($created->id);
+                $category->save();
+
+            }
+        }
+        
 
         return $created->load('author', 'group', 'achiever', 'categories');
 
