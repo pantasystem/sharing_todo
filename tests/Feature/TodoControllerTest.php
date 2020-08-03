@@ -169,5 +169,20 @@ class TodoControllerTest extends TestCase
         ]);
     }
 
+    public function testAchiveTodoInMyTodo()
+    {
+        $aTodo = $this->user->todos()->first();
+
+        $this->assertNull($aTodo->achiever);
+        $response = $this->actingAs($this->user);
+        $response->json('PUT', '/api/me/todos/' . $aTodo->id)->assertJson([
+            'achiever' => [
+                'name' => $this->user->name,
+                'id' => $this->user->id
+            ]
+        ]);
+
+    }
+
    
 }

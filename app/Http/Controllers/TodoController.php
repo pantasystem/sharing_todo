@@ -72,11 +72,11 @@ class TodoController extends Controller
         return $this->getTodoQuery($user, $group_id)->findOrFail($todo_id);
     }
 
-    public function achiveTodo($todo_id, $group_id)
+    public function achiveTodo($todo_id, $group_id = null)
     {
         $user = Auth::user();
         $todo = $this->getTodoQuery($user, $group_id)->findOrFail($todo_id);
-        $todo->associate($user);
+        $todo->achiever()->associate($user);
         $todo->save();
         return $todo->load('author', 'group', 'achiever', 'categories');
     }
