@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Request\CreateTodoRequest;
 
 
 class TodoController extends Controller
@@ -20,20 +21,48 @@ class TodoController extends Controller
         $user = Auth::user();
 
         \Log::info("access todos");
-        $query;
-        if($group_id == true){
-            $query = $user->groups()->findOrFail($group_id)->todos();
-        }else{
-            $query = $user->todos();
-        }
+        $query = $this->getTodoQuery($user, $group_id);
 
-        $query->with('author', 'group');
+        $query->with('author', 'group', 'categories');
         return $query->paginate($page);
 
     }
 
-    public function get(Request $request, $todo_id)
+    public function store(CreateTodoRequest $request, $group_id = null)
     {
 
+        $user = Auth::user();
+
+        $query = $this->getTodoQuery($user, $group_id);
+        $created = $query->create(
+            $request->one('title', 'description')
+        );
+
+        return $created->load('author', 'group', 'achiever', 'categories');
+
+    }
+    public function get($todo_id, $group_id)
+    {
+        $user = Auth::user();
+
+        return $this->getTodoQuery($user, $group_id)->findOrFail($todo_id);
+    }
+
+    public function achiveTodo($todo_id, $group_id)
+    {
+        $user = Auth::user();
+        $todo = $this->getTodoQuery($user, $group_id)->findOrFail($todo_id);
+        $todo->associate($user);
+        $todo->save();
+        return $todo->load('author', 'group', 'achiever', 'categories');
+    }
+
+    private function getTodoQuery($user, $group_id = null)
+    {
+        if($group_id){
+            return $user->groups()->findOrFail($group_id)->todos();
+        }else{
+            return $user->todos();
+        }
     }
 }

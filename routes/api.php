@@ -21,6 +21,8 @@ Auth::routes();
 
 Route::get('/me', 'UserController@getMe');
 Route::get('/me/todos/{page?}', 'TodoController@todos');
+Route::get('/me/todos/{todo_id}', 'TodoController@get');
+Route::put('/me/todos/{todo_id}', 'TodoController@achiveTodo');
 
 
 Route::post('/groups', 'GroupController@store');
@@ -35,6 +37,9 @@ Route::get('/groups/{group_id}', 'GroupController@get');
 Route::get('/groups/{group_id}/todos/{page?}', 'TodoController@todos');
 
 Route::get('/groups/{group_id}/todos/{todo_id}', 'TodoController@get');
+Route::put('/groups/{group_id}/todos/{todo_id}', 'TodoController@achiveTodo');
+
+
 
 
 
