@@ -204,7 +204,7 @@ class TodoControllerTest extends TestCase
             ]);
         $this->assertNotNull($group->todos()->find($aTodo->id));
         $this->assertTrue($aTodo->id == 5);
-        $this->assertNotNull($this->user->groups->find(5));
+        //$this->assertNotNull($this->user->groups->find(5));
         
             $response = $this->actingAs($this->user);
             $response->json('PUT', '/api/groups/' . $group->id .'/todos/' . $aTodo->id)->assertJson([

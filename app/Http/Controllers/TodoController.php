@@ -67,22 +67,30 @@ class TodoController extends Controller
         return $todo->load('author', 'group','user', 'achiever', 'categories');
 
     }
-    public function get($todo_id, $group_id)
+    
+
+    public function getGroupsTodo($todo_id, $group_id)
     {
         $user = Auth::user();
 
-        return $this->getTodoQuery($user, $group_id)->findOrFail($todo_id);
+        return TodoService::loadTodo($user, $todo_id, $group_id);
     }
 
-    public function achiveTodo(Request $request)
+    public function getMyTodo($todo_id)
     {
-        $user_id = $request->input('user_id');
-        $group_id = $request->input('group_id');
         $user = Auth::user();
-        $todo = $this->getTodoQuery($user, $group_id)->findOrFail($todo_id);
-        $todo->achiever()->associate($user);
-        $todo->save();
-        return $todo->load('author', 'group', 'user', 'achiever', 'categories');
+        return TodoService::loadTodo($user, $todo_id, null);
+    }
+   
+
+    public function achiveMyTodo($todo_id)
+    {
+        return TodoService::achiveTodo(Auth::user(), $todo_id, null);
+    }
+
+    public function achiveGroupsTodo($group_id, $todo_id)
+    {
+        return TodoService::achiveTodo(Auth::user(), $todo_id, $group_id);
     }
 
     private function getTodoQuery($user, $group_id = null)
