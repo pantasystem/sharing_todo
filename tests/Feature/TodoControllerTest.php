@@ -96,7 +96,7 @@ class TodoControllerTest extends TestCase
                 'id' => $this->user->id,
                 'name' => $this->user->name
             ],
-            
+
         ]);
     }
 
@@ -184,6 +184,35 @@ class TodoControllerTest extends TestCase
             ]
         ]);
 
+    }
+
+    public function testAchiveTodoInGroup()
+    {
+        $group = $this->user->groups()->first();
+        $this->assertNotNull($group->id);
+
+        $otherMember = factory(User::class)->make();
+        $otherMember->save();
+
+        $group->members()->attach($otherMember, ['is_admin' => false]);
+        $group->save();
+
+        $aTodo = $otherMember->groups()->findOrFail($group->id)->todos()
+            ->create([
+                'title' => '他メンバーによる投稿',
+                'description' => '他メンバーによるTodoの達成テスト'
+            ]);
+        $this->assertNotNull($group->todos()->find($aTodo->id));
+        $this->assertTrue($aTodo->id == 5);
+        $this->assertNotNull($this->user->groups->find(5));
+        
+            $response = $this->actingAs($this->user);
+            $response->json('PUT', '/api/groups/' . $group->id .'/todos/' . $aTodo->id)->assertJson([
+                'achiever' => [
+                    'name' => $this->user->name,
+                    'id' => $this->user->id
+                ]
+            ]);
     }
 
    

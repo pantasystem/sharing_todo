@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateTodoRequest;
 use App\Todo;
+use App\Facades\TodoService;
+
 
 
 class TodoController extends Controller
@@ -72,8 +74,10 @@ class TodoController extends Controller
         return $this->getTodoQuery($user, $group_id)->findOrFail($todo_id);
     }
 
-    public function achiveTodo($todo_id, $group_id = null)
+    public function achiveTodo(Request $request)
     {
+        $user_id = $request->input('user_id');
+        $group_id = $request->input('group_id');
         $user = Auth::user();
         $todo = $this->getTodoQuery($user, $group_id)->findOrFail($todo_id);
         $todo->achiever()->associate($user);
