@@ -7,6 +7,8 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Artisan;
 use App\User;
+use App\Group;
+
 
 class UserTest extends TestCase
 {
@@ -61,5 +63,21 @@ class UserTest extends TestCase
         $this->assertNotNull($category);
 
         $this->assertTrue($category->name == $categoryName);
+    }
+
+    public function testCreateGroupByUser()
+    {
+        $user = User::find(1);
+
+        $group = Group::create([
+            'name' => 'テストグループ',
+            'description' => 'てすとぐるーぷです'
+        ]);
+        $user->groups()->attach($group->id, ['is_admin' => true]);
+        $this->assertNotNull($user->groups()->find($group->id));
+
+        //$this->assertNotNull($group->members()->findOrFail($user->id));
+        $this->assertNotNull($group->members()->findOrFail($user->id));
+
     }
 }

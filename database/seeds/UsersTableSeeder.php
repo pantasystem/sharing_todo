@@ -12,7 +12,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         //
-        $names = ['A', 'B', 'C'];
+        $names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N'];
         foreach( $names as $name ){
             DB::table('users')->insert([
                 'name' => $name,

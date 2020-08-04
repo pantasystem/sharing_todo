@@ -7,12 +7,18 @@ use App\User;
 use App\Todo;
 use App\Message;
 use App\Category;
+use App\GroupInvitation;
+use Carbon\Carbon;
 
 class Group extends Model
 {
     //
     protected $fillable = [
-        'name', 'description', 'user_id', 'group_id'
+        'name', 'description', 'user_id'
+    ];
+
+    protected $hidden = [
+        'pivot'
     ];
 
     public function members()
@@ -21,7 +27,7 @@ class Group extends Model
         // 第二引数結合テーブル名
         // 第３引数はリレーションを定義しているモデルの外部キー名で、
         // 一方の第４引数には結合するモデルの外部キー名を渡します。
-        return $this->belongsToMany(User::class, 'members', 'user_id', 'group_id');
+        return $this->belongsToMany(User::class, 'members', 'group_id', 'user_id');
 
     }
 
@@ -36,4 +42,11 @@ class Group extends Model
     {
         return $this->morphMany(Category::class, 'author');
     }
+
+    public function invitations()
+    {
+        return $this->hasMany(GroupInvitation::class, 'invitation_group_id');
+    }
+
+    
 }
