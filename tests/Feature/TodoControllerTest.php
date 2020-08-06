@@ -215,5 +215,31 @@ class TodoControllerTest extends TestCase
             ]);
     }
 
+    public function testSearchFromUserTodos()
+    {
+        $testWord = 'hogehogePiyo';
+        $todo = $this->user->todos()->create([
+            'title' => 'hoge' . $testWord . 'hoge',
+            'description' => 'description'
+        ]);
+
+        $response = $this->actingAs($this->user);
+
+        $response->json('GET', route('me.todos.search', [ 'word' => $testWord]))->assertJson([
+            'data'=>[
+                [
+                    'id' => $todo->id,
+                    'title' => $todo->title,
+                    'description' => $todo->description
+                ]
+            ]
+        ]);
+    }
+
+    public function testSEarchFromGroupTodos()
+    {
+
+    }
+
    
 }

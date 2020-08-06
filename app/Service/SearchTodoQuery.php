@@ -32,6 +32,9 @@ class SearchTodoQuery
     public function setGroup($group): void
     {
         $group_id;
+        if(!$group){
+            return;
+        }
         if($group instanceof Group){
             $group_id = $group->id;
         }else{
@@ -58,6 +61,9 @@ class SearchTodoQuery
             $query = $this->user->todos();
         }
 
+        if(!$this->word){
+            return $query;
+        }
         $word = '';
         if(!$this->is_start_match){
             $word .= '%';

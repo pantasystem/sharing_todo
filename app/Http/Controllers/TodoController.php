@@ -94,17 +94,28 @@ class TodoController extends Controller
         return TodoService::achiveTodo(Auth::user(), $todo_id, $group_id);
     }
 
-    public function searchTodosFromGroup($group_id, $word, $page = 1)
-    {
-        $searchQuery = new SearchTodoQuery(Auth::user(), $word);
-        $searchQuery->setGroup($group_id);
-        return $searchQuery->buildQuery()->pagenate($page);
-    }
+    
 
-    public function searchTodosFromMe($word, $page = 1)
+    public function searchTodos(Request $request, $group_id = null)
     {
+        //$group_id = $request->input('group_id', null);
+        $is_start_match = $this->toBoolean($request->query('start_match', false));
+        $is_end_match = $this->toBoolean($request->query('end_match', false));
+        $is_detail = $this->toBoolean($request->query('detail'));
+        $word = $request->query('word');
+        $limit = $request->query('limit', 20);
+
+        $orderBy = $request->query('order', 'desc');
+        if(strtolower($orderBy) != 'desc'){
+            $orderBy = "asc";
+        }
+
         $searchQuery = new SearchTodoQuery(Auth::user(), $word);
-        return $searchQuery->buildQuery()->pagenate($page);
+        $searchQuery->is_start_match = $is_start_match;
+        $searchQuery->is_end_match = $is_end_match;
+        $searchQuery->is_detail = $is_detail;
+        $searchQuery->setGroup($group_id);
+        return $searchQuery->buildQuery()->orderBy('id', $orderBy)->paginate($limit);        
     }
 
     private function getTodoQuery($user, $group_id = null)
@@ -114,5 +125,9 @@ class TodoController extends Controller
         }else{
             return $user->todos();
         }
+    }
+    
+    private function toBoolean($value){
+        return $value !== 'false' && $value;
     }
 }
