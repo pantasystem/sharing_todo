@@ -53,9 +53,9 @@ class SearchTodoQuery
     {
         $query;
         if($this->group){
-            $query = $this->group->groups();
+            $query = $this->group->todos();
         }else{
-            $query = $this->user->groups();
+            $query = $this->user->todos();
         }
 
         $word = '';
