@@ -99,7 +99,7 @@ class SearchTodoQueryTest extends TestCase
         $this->query->is_start_match = true;
         $this->query->is_end_match = false;
         $todo = $this->user->todos()->create([
-            'title' => 'hogehoge' . $this->testWord,
+            'title' =>  $this->testWord . 'hogehoge',
             'description' => 'description'
         ]);
         $searchedTodo = $this->query->buildQuery()->first();
@@ -128,7 +128,7 @@ class SearchTodoQueryTest extends TestCase
         $this->query->is_start_match = false;
         $this->query->is_end_match = true;
         $todo = $this->user->todos()->create([
-            'title' => $this->testWord . 'hogehoge',
+            'title' =>  'hogehoge' . $this->testWord,
             'description' => 'description'
         ]);
         $searchedTodo = $this->query->buildQuery()->first();
@@ -143,7 +143,7 @@ class SearchTodoQueryTest extends TestCase
         $this->query->is_start_match = false;
         $this->query->is_end_match = true;
         $todo = $this->user->todos()->create([
-            'title' => 'hogehoge' . $this->testWord,
+            'title' =>  $this->testWord . 'hogehoge',
             'description' => 'description'
         ]);
         $searchedTodo = $this->query->buildQuery()->first();
@@ -159,8 +159,8 @@ class SearchTodoQueryTest extends TestCase
             'description' => 'description'
         ]);
 
-        $this->query->is_start_match = false;
-        $this->query->is_end_match = false;
+        $this->query->is_start_match = true;
+        $this->query->is_end_match = true;
 
         $searchedTodo = $this->query->buildQuery()->first();
 
@@ -176,8 +176,8 @@ class SearchTodoQueryTest extends TestCase
             'description' => 'description'
         ]);
 
-        $this->query->is_start_match = false;
-        $this->query->is_end_match = false;
+        $this->query->is_start_match = true;
+        $this->query->is_end_match = true;
 
         $searchedTodo = $this->query->buildQuery()->first();
 

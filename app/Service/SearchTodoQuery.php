@@ -12,9 +12,9 @@ class SearchTodoQuery
 
     public $is_detail = false;
 
-    public $is_start_match = true;
+    public $is_start_match = false;
 
-    public $is_end_match = true;
+    public $is_end_match = false;
 
     public $word = null;
 
@@ -59,11 +59,11 @@ class SearchTodoQuery
         }
 
         $word = '';
-        if($this->is_start_match){
+        if(!$this->is_start_match){
             $word .= '%';
         }
         $word .= $this->word;
-        if($this->is_end_match){
+        if(!$this->is_end_match){
             $word .= '%';
         }
 
