@@ -18,19 +18,7 @@ class TodoController extends Controller
         $this->middleware('auth');
     }
 
-    public function todos(Request $request, $group_id = null, $page = 1)
-    {
-        //$group_id = $request->input("group_id");
-
-        $user = Auth::user();
-
-        \Log::info("access todos");
-        $query = $this->getTodoQuery($user, $group_id);
-
-        $query->with('author', 'user', 'group', 'categories');
-        return $query->paginate($page);
-
-    }
+    
 
     public function store(CreateTodoRequest $request, $group_id = null)
     {
@@ -70,17 +58,19 @@ class TodoController extends Controller
     }
     
 
-    public function getGroupsTodo($todo_id, $group_id)
+    public function getGroupsTodo($group_id, $todo_id)
     {
         $user = Auth::user();
 
-        return TodoService::loadTodo($user, $todo_id, $group_id);
+        return TodoService::loadTodo($user, $todo_id, $group_id)
+            ->load('author', 'group','user', 'achiever', 'categories');
     }
 
     public function getMyTodo($todo_id)
     {
         $user = Auth::user();
-        return TodoService::loadTodo($user, $todo_id, null);
+        return TodoService::loadTodo($user, $todo_id, null)
+            ->load('author', 'group','user', 'achiever', 'categories');
     }
    
 
@@ -96,26 +86,26 @@ class TodoController extends Controller
 
     
 
-    public function searchTodos(Request $request, $group_id = null)
+    public function todos(Request $request, $group_id = null)
     {
         //$group_id = $request->input('group_id', null);
-        $is_start_match = $this->toBoolean($request->query('start_match', false));
-        $is_end_match = $this->toBoolean($request->query('end_match', false));
-        $is_detail = $this->toBoolean($request->query('detail'));
         $word = $request->query('word');
-        $limit = $request->query('limit', 20);
-
-        $orderBy = $request->query('order', 'desc');
-        if(strtolower($orderBy) != 'desc'){
-            $orderBy = "asc";
-        }
 
         $searchQuery = new SearchTodoQuery(Auth::user(), $word);
-        $searchQuery->is_start_match = $is_start_match;
-        $searchQuery->is_end_match = $is_end_match;
-        $searchQuery->is_detail = $is_detail;
+
+        $searchQuery->is_start_match  = $this->toBoolean($request->query('start_match', false));
+        $searchQuery->is_end_match = $this->toBoolean($request->query('end_match', false));
+        $searchQuery->is_detail = $this->toBoolean($request->query('detail'));
+        $limit = $request->query('limit', 20);
+
+        $orderBy = $request->query('order', 'asc');
+        if(strtolower($orderBy) != 'asc'){
+            $orderBy = 'desc';
+        }
+
         $searchQuery->setGroup($group_id);
-        return $searchQuery->buildQuery()->orderBy('id', $orderBy)->paginate($limit);        
+        return $searchQuery->buildQuery()->orderBy('id', $orderBy)
+            ->with('author', 'user', 'group', 'categories')->paginate($limit);        
     }
 
     private function getTodoQuery($user, $group_id = null)
