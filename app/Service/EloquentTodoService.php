@@ -23,7 +23,11 @@ class EloquentTodoService implements TodoService{
     }
 
     
-    
+    public function searchTodos(User $user, $word, $group_id = null)
+    {
+        $query = getTodoQuery($user, $group_id);
+        return $query->where('title', 'like', '%' . $word . '%');
+    }
 
     private function getTodoQuery($user, $group_id = null)
     {
@@ -33,4 +37,7 @@ class EloquentTodoService implements TodoService{
             return $user->todos();
         }
     }
+
+    
+
 }

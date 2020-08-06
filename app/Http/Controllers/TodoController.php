@@ -93,6 +93,16 @@ class TodoController extends Controller
         return TodoService::achiveTodo(Auth::user(), $todo_id, $group_id);
     }
 
+    public function searchTodosFromGroup($group_id, $word, $page = 1)
+    {
+        return TodoService::searchTodos(Auth::user(), $word, $group_id)->pagenate($page);
+    }
+
+    public function searchTodosFromMe($word, $page = 1)
+    {
+        return TodoService::searchTodos(Auth::user(), $word, null)->pagenate($page);
+    }
+
     private function getTodoQuery($user, $group_id = null)
     {
         if($group_id){
