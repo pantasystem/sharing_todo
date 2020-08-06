@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateTodoRequest;
 use App\Todo;
 use App\Facades\TodoService;
+use App\Service\SearchTodoQuery;
 
 
 
@@ -95,12 +96,15 @@ class TodoController extends Controller
 
     public function searchTodosFromGroup($group_id, $word, $page = 1)
     {
-        return TodoService::searchTodos(Auth::user(), $word, $group_id)->pagenate($page);
+        $searchQuery = new SearchTodoQuery(Auth::user(), $word);
+        $searchQuery->setGroup($group_id);
+        return $searchQuery->buildQuery()->pagenate($page);
     }
 
     public function searchTodosFromMe($word, $page = 1)
     {
-        return TodoService::searchTodos(Auth::user(), $word, null)->pagenate($page);
+        $searchQuery = new SearchTodoQuery(Auth::user(), $word);
+        return $searchQuery->buildQuery()->pagenate($page);
     }
 
     private function getTodoQuery($user, $group_id = null)

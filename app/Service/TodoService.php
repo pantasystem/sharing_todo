@@ -10,6 +10,5 @@ interface TodoService{
 
     public function loadTodo(User $user, $todo_id, $group_id);
 
-    public function searchTodos(User $user, $word, $group_id = null);
 
 }
