@@ -96,6 +96,7 @@ class TodoController extends Controller
         $searchQuery->is_start_match  = $this->toBoolean($request->query('start_match', false));
         $searchQuery->is_end_match = $this->toBoolean($request->query('end_match', false));
         $searchQuery->is_detail = $this->toBoolean($request->query('detail'));
+        $searchQuery->state = $request->query('state', 0);
         $limit = $request->query('limit', 20);
 
         $orderBy = $request->query('order', 'asc');

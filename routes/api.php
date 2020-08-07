@@ -26,7 +26,7 @@ Route::get('/me', 'UserController@getMe');
 Route::get('/me/todos/{todo_id}', 'TodoController@getMyTodo')->where('todo_id', '[0-9]+');
 Route::put('/me/todos/{todo_id}', 'TodoController@achiveMyTodo')->where('todo_id', '[0-9]+');
 Route::post('/me/todos', 'TodoController@store');
-Route::get('/me/todos{word?}{page?}{detail?}{start_match?}{end_match?}{order?}', 'TodoController@todos')->name('me.todos.search')
+Route::get('/me/todos{word?}{page?}{detail?}{start_match?}{end_match?}{order?}{state?}', 'TodoController@todos')->name('me.todos.search')
     ->where(['page' => "[0-9]+"]);
 
 Route::post('/groups', 'GroupController@store');
@@ -42,7 +42,7 @@ Route::get('/groups/{group_id}', 'GroupController@getGroupsTodo')
 
 //Route::get('/groups/{group_id}/todos/{page?}', 'TodoController@todos');
 Route::post('/groups/{group_id}/todos', 'TodoController@store');
-Route::get('/groups/{group_id}/todos{word?}{page?}{detail?}{start_match?}{end_match?}{order?}', 'TodoController@todos')
+Route::get('/groups/{group_id}/todos{word?}{page?}{detail?}{start_match?}{end_match?}{order?}{state?}', 'TodoController@todos')
     ->name('group.todos.search')->where(['group_id' => '[0-9]+']);
 
 Route::get('/groups/{group_id}/todos/{todo_id}', 'TodoController@getGroupsTodo')

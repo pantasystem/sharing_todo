@@ -54,4 +54,14 @@ class Todo extends Model
     {
         return $this->belongsTo(User::class, 'achiever_id');
     }
+
+    public function scopeActive($query)
+    {   
+        return $query->whereNull('achiever_id');
+    }
+
+    public function scopeAchieved($query)
+    {
+        return $query->whereNotNull('achiever_id');
+    }
 }

@@ -4,11 +4,19 @@ namespace App\Service;
 
 use App\User;
 use App\Group;
+use App\Category;
 
+/**
+ * Group, Userをソースとする前後一致、前一致、後方一致、いずれかに一致パターンの検索クエリビルダ
+ */
 class SearchTodoQuery
 {
 
+    public const STATE_ALL = 0;
 
+    public const STATE_ACTIVE = 1;
+
+    public const STATE_ACHIEVED = 2;
 
     public $is_detail = false;
 
@@ -16,11 +24,14 @@ class SearchTodoQuery
 
     public $is_end_match = false;
 
+    public $state = 0;
+
     public $word = null;
 
     private $group = null;
 
     private $user = null;
+
 
 
     public function __construct(User $user, $word)
@@ -52,6 +63,8 @@ class SearchTodoQuery
 
     }
 
+
+
     public function buildQuery()
     {
         $query;
@@ -59,6 +72,14 @@ class SearchTodoQuery
             $query = $this->group->todos();
         }else{
             $query = $this->user->todos();
+        }
+        
+        if($this->state != 0){
+            if($this->state == 1){
+                $query = $query->active();
+            }else{
+                $query = $query->achieved();
+            }
         }
 
         if(!$this->word){
@@ -79,6 +100,7 @@ class SearchTodoQuery
             $query = $query->orWhere('description', 'like', $word);
         }
 
+        
         return $query;
     }
 
