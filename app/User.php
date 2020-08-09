@@ -89,5 +89,16 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(GroupInvitation::class, 'invitation_user_id');
     }
 
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
   
 }
