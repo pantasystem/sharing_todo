@@ -17,7 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/me', 'UserController@getMe');
 
@@ -50,6 +50,14 @@ Route::get('/groups/{group_id}/todos/{todo_id}', 'TodoController@getGroupsTodo')
 Route::put('/groups/{group_id}/todos/{todo_id}', 'TodoController@achiveGroupsTodo')
     ->where(['group_id' => '[0-9]+', 'todo_id' => '[0-9]+']);
 
+Route::post('/login', 'AuthController@login');
+
+Route::group([
+    'middlware' => 'auth:api'
+], function() {
+   Route::post('/logout', 'AuthController@logout');
+   Route::post('/refresh', 'AuthController@refresh');
+});
 
 
 

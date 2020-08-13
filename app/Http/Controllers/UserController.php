@@ -14,6 +14,7 @@ class UserController extends Controller
 
     public function getMe()
     {
-        return Auth::user()->load('groups');
+        return auth()->user()->load('groups');
+        //return Auth::user()->load('groups');
     }
 }
